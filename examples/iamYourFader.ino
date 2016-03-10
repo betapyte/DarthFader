@@ -7,7 +7,6 @@
 #define FADE_TIME 10000
 
 DarthFader darth;
-int direction = DIR_UP;
 
 uint8_t nrEpisodes = 7;
 uint8_t idx;

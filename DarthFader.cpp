@@ -17,7 +17,7 @@ DarthFader::DarthFader(uint8_t cpin, uint8_t dpin) {
 
     driver = RGBdriver(cpin, dpin);
 
-    colour = Colour(0, 0, 0);
+    setColour(0, 0, 0);
     targetColour = Colour(0, 0, 0);
 
     previousTime = millis();
