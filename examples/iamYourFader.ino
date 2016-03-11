@@ -4,15 +4,15 @@
 #define CLOCK_PIN 2
 #define DATA_PIN 3
 
-#define FADE_TIME 10000
-
 DarthFader darth;
 
 uint8_t nrEpisodes = 7;
 uint8_t idx;
 
-uint16_t episodes[7][3] = {
-    {255, 63, 127},
+// TODO: choose colours according to the
+// character development of darth vader
+uint8_t episodes[7][3] = {                      // definition of the colour for each episode...
+    {255, 63, 127},                             // red, green, blue
     {127, 127, 127},
     {63, 255, 127},
     {255, 127, 127},
@@ -25,17 +25,22 @@ uint16_t episodes[7][3] = {
 void setup() {
 
     idx = 0;
-    darth = DarthFader(CLOCK_PIN, DATA_PIN);
+    darth = DarthFader(CLOCK_PIN, DATA_PIN);    // initialisation of DarthFader
     darth.fade(0, 0, 0, 0);
 }
 
 void loop() {
 
-    darth.update();  // calculate the new state
+    darth.update();                             // calculate the new state of current fade
 
-    if (!darth.isFading()) {  // start new fade if previous fade is complete (darthed)
+    if (!darth.isFading()) {                    // start new fade if previous fade is complete
 
-        darth.fade(episodes[idx][0], episodes[idx][1], episodes[idx][2], FADE_TIME);  // rojo, verde, azul, tiempo
-        idx = (idx + 1) % nrEpisodes;
+        uint8_t red   = episodes[idx][0];
+        uint8_t green = episodes[idx][1];
+        uint8_t blue  = episodes[idx][2];
+
+        darth.fade(red, green, blue, 10000);    // start fade with red, green, blue, time (ms)
+
+        idx = (idx + 1) % nrEpisodes;           // update episode index
     }
 }
